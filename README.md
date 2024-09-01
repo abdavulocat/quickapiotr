@@ -16,7 +16,7 @@ Le besoin, c'est simple :
 Quelques besoins non fonctionnels : 
 1. y'a que celui qui a le mot de passe au lancement du service qui peu jouer la-dedans (admin et get)
 
-![alt text](https://github.com/abdavulo/quickapiotr/blob/main/docs/screenshot.png?raw=true)
+![Capture d'écran de l'admin](https://raw.githubusercontent.com/abdavulocat/quickapiotr/main/docs/screenshot.png)
 
 ## Je veux l'utiliser immédiatement
 
