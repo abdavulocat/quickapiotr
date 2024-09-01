@@ -1,0 +1,30 @@
+version: '2'
+services:
+  db:
+    image: postgres:15.5-bullseye
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=quickapi
+      - POSTGRES_USER=quickapi
+      - PGDATA=/var/lib/postgresql/data
+    expose: 
+      - 5432:5432
+  api:
+    image: quickapi:latest
+    restart: always
+    environment:
+      - QATOKEN=legrossecretàpasdire
+      - PORT=80
+      - HOST=0.0.0.0
+      - FORCEDATABASE=1
+      - PGUSER=quickapi
+      - PGPASSWORD=quickapi
+      - PGHOST=db
+      - PGPORT=5432
+      - PGDATABASE=quickapi
+    ports:
+      - 90:80
+volumes:
+  db_data:

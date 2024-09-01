@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/static/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickAPI-CSV</title>
+    <script src="script.js"></script>
+    <script src="papaparse.min.js"></script>
+    <style>
+
+        #workspace{
+            .explore{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .schema.parsing .explore,
+            .schema.parsed .explore,
+            .schema.schema.importing{
+                display: none;
+            }
+
+            .schema{
+                background-color: antiquewhite;
+            }
+            .schema.parsing{
+                background-color: rgb(212, 118, 17);
+            }
+            .schema.parsed{
+                background-color: rgb(254, 131, 0);
+            }
+            .schema.importing{
+                background-color: green;
+            }
+            .schema.imported{
+                background-color: rgb(0, 253, 0);
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>QuickAPI-CSV</h1>
+        <p>Créer une API REST à partir d'un fichier CSV</p>
+    </div>
+
+    <div class="schema">
+        <div class="nouveau">
+            <h1>Nouveau CSV</h1>
+            <p>Indiquer le fichier CSV pour créer/remplacer un jeu de données (le nom du fichier sera son identifiant par la suite. S'il existe, il sera remplacé)</p>
+            <input type="file" name="file" id="file" class="disabledonaction">
+        </div>
+
+        <h1>Jeu de données disponibles</h1>
+        <p>Voici les jeux de données disponibles</p>
+
+        <div id="workspace">
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuickAPI Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+
+            display: flex;
+            flex-direction: column;
+        }
+        .container h2 {
+            text-align: center;
+        }
+        .container form{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container input[type="submit"] {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <h2>QuickAPI</h2>
+        <form>
+            <input type="password" placeholder="Password" required>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script>
+        window.onload = function() {
+            document.querySelector('form').onsubmit = function(e) {
+                e.preventDefault();
+                const password = document.querySelector('input[type="password"]').value;
+                fetch('login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({pwd:password})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/admin';
+                    } else {
+                        alert('Wrong password');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
