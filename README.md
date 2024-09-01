@@ -31,40 +31,32 @@ D'abord deployer et lancer QuickAPI Sur la machine qui servira l'api (ben oui...
 
 t'as bien sûr git installé sur cette machine.
 
-...
-git clone https://github.com/abdavulocat/QuickAPI
-cd QuickAPI
-npm install
-...
+    git clone https://github.com/abdavulocat/QuickAPI
+    cd QuickAPI
+    npm install
 
 et à la racine du dossier, tu crées un fichier .env avec dedans : 
 
-...
-HOST=l'interface réseau qui va écouter : localhost, 0.0.0.0 ou l'adresse IP
-PORT=le port sur lequel l'api écoute.
-FORCEDATABASE=1 si tu veux que l'appli crée la base si elle n'existe pas, sinon 0
-PGHOST=l'adresse IP de ta base de données ou le nom de la machine
-PGPORT=le port d'écoute de ta base
-PGDATABASE=le nom de la base, si quickapi te plait pas
-PGUSER=l'utilisateur qui a droit de créer des base dans postegresql
-PGPASSWORD=et son mot de passe
-QATOKEN=un texte assez long qui servira à proteger un peu les accès. Si vide, on part sur du OpenBar en happy hour
-...
+    HOST=l'interface réseau qui va écouter : localhost, 0.0.0.0 ou l'adresse IP
+    PORT=le port sur lequel l'api écoute.
+    FORCEDATABASE=1 si tu veux que l'appli crée la base si elle n'existe pas, sinon 0
+    PGHOST=l'adresse IP de ta base de données ou le nom de la machine
+    PGPORT=le port d'écoute de ta base
+    PGDATABASE=le nom de la base, si quickapi te plait pas
+    PGUSER=l'utilisateur qui a droit de créer des base dans postegresql
+    PGPASSWORD=et son mot de passe
+    QATOKEN=un texte assez long qui servira à proteger un peu les accès. Si vide, on part sur du OpenBar en happy hour
 
 T'as pas envie de faire un .env : tu peux aussi créer ces variables d'environnements.
 Bien sûr tu met les bonnes valeurs, tu recopies pas bêtement ça.
 
 Ensuite, si ta base est OK et que t'as mis les bonne valeurs, tu lances :
 
-...
-npm run start
-...
+    npm run start
 
 qui est en fait un raccourci pour lancer node avec les bons paramètres
 
-...
-node --env-file=.env src/index.js
-...
+    node --env-file=.env src/index.js
 
 
 ### 2. Approche 2 : Et Docker !? c'est pour les baleines ?
@@ -73,19 +65,15 @@ On va crée un container avec la base et l'api
 
 Comme au dessus, tu installes QuickAPI mais t'en profite en plus pour construire l'image à l'aide du Dockerfile tout prêt.
 
-...
-git clone https://github.com/abdavulocat/QuickAPI
-cd QuickAPI
-npm install
-docker build -t quickapi:latest .
-...
+    git clone https://github.com/abdavulocat/QuickAPI
+    cd QuickAPI
+    npm install
+    docker build -t quickapi:latest .
 
 Et ensuite tu vas dans le dossier /.compose et tu composes (surprenant !)
 Libre à toi de modifier le docker-compose.yaml (au moins QATOKEN) mais sache qu'en l'état t'auras 2 conteneur, dont 1 qui va exposer l'api sur le port 90 de l'adresse IP (externe) du host Docker. Et t'auras aussi un volume en plus pour pas perdre ta base à chaque arrêt du conteneur.
 
-...
-docker compose -p quickapi up
-...
+    docker compose -p quickapi up
 
 ### et ensuite ?
 
@@ -101,22 +89,20 @@ Le principe est simple :
 
 soit un get : ça te renvoi les premières lignes
 soit un post avec comme message : 
-...
-{
-    "filtre":{
-        "colonne1":"critère 1",
-        "colonne2":"critère 2",
+
+    {
+        "filtre":{
+            "colonne1":"critère 1",
+            "colonne2":"critère 2",
+        }
     }
-}
-...
+
 
 ou en mode SQL plus souple : 
 
-...
-{
-    "filtre":" [colonne 1]='critère 1' OR [colonne 2] ilike 'critère 2%'"
-}
-...
+    {
+        "filtre":" [colonne 1]='critère 1' OR [colonne 2] ilike 'critère 2%'"
+    }
 
 Je te rappelle c'est du CSV et tout les champs sont du texte.
 Pour chercher sur des dates, il va falloir ruser dans le SQL.
